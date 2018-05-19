@@ -10,15 +10,19 @@ public class Nodo
 	//costruttori
 	public Nodo (Pacchetto p)
 	{
-		setPacchetto(p);
+		setInfo(p);
 		link=null;
 	}
+	public Nodo (Pacchetto p, Nodo n) {
+		setInfo(p);
+		link=n;
+	}
 	//getter e setter
-	public Pacchetto getPacchetto() {
+	public Pacchetto getInfo() {
 		return packet;
 	}
 
-	public void setPacchetto(Pacchetto p) 
+	public void setInfo(Pacchetto p) 
 	{
 		this.packet = new Pacchetto(p);
 	}

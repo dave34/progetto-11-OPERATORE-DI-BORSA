@@ -1,8 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-import java.util.Date;
-
-public class Pacchetto {
+public class Pacchetto implements Serializable {
 
 	//atrributi
 	private int codiceIdentificativo;
@@ -26,6 +25,7 @@ public class Pacchetto {
 		setValoreEuroVendita(p.getValoreEuroVendita());
 		setdVendita(p.getdVendita());
 	}
+	
 	//getter e setter
 	public int getCodiceIdentificativo() {
 		return codiceIdentificativo;
@@ -76,6 +76,9 @@ public class Pacchetto {
 		}
 	}
 	
-	
+	public String toStringh() {
+		String risultato="codice:"+getCodiceIdentificativo();
+		return risultato;
+	}
 	
 }
