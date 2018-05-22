@@ -11,16 +11,22 @@ public class Pacchetti	implements Serializable {
 
 		private Nodo head;
 		private int elementi;
-		
+		//costruttore
+		/**crea una lista vuota*/
 		public Pacchetti()
 		{
 			head=null;
 			elementi=0;
 		}
-		
+		/** ritorna il numero di elementi che è composta la lista*/
 		public int getElementi()
 		{
 			return elementi;
+		}
+		/** ritorna l head della lista*/
+		public Nodo getHead()
+		{
+			return head;
 		}
 		/**crea un nuovo nodo della lista che punta al nodo "link"*/
 		private Nodo creaNodo(Pacchetto p, Nodo link)
@@ -29,7 +35,7 @@ public class Pacchetti	implements Serializable {
 			nodo.setLink(link);
 			return nodo;
 		}
-		/** 	*/
+		/** restituisce il pacchetto passandogli la posiizone*/
 		 public Pacchetto getPacchetto (int posizione) throws PacchettiException 
 		 {
 			 if(elementi==0)
@@ -41,7 +47,7 @@ public class Pacchetti	implements Serializable {
 					 
 		 }
 		 
-		 /** */
+		 /**	restituisce il link per puntare al link successivo */
 		private Nodo getLinkPosizione(int posizione) throws PacchettiException
 		{
 			
@@ -59,12 +65,12 @@ public class Pacchetti	implements Serializable {
 			}
 			return p;
 		}
-		/**  */
+		/** mostra come output tutta la lista */
 		public String toString()
 		{
-			String risultato="Head";
+			String risultato="Pacchetti: ";
 			if (elementi==0)
-				return risultato;
+				return risultato="Non ci sono pacchetti presenti";
 			Nodo p=head;
 			while(p!=null)
 			{
@@ -77,13 +83,13 @@ public class Pacchetti	implements Serializable {
 		}
 		
 		
-		/**  */
+		/** 	inserisce un pacchetto in testa (head punta a lui)  */
 		public void inserisciInTesta(Pacchetto pak)	{
 			Nodo p=creaNodo(pak, head);
 			head=p;
 			elementi++;
 		}
-		/**  */
+		/** inserisce un pacchetto come ultimo */
 		public void inserisciInCoda(Pacchetto pak) throws PacchettiException {
 			if (elementi==0) 
 				inserisciInTesta(pak);
@@ -92,7 +98,7 @@ public class Pacchetti	implements Serializable {
 			p.setLink(pn);
 			elementi++;
 		}
-		/**  */
+		/**  inserisce un pacchetto in posizione*/
 		public void acquistoPacchetto(Pacchetto pak, int posizione) throws PacchettiException {
 			
 			
@@ -117,7 +123,7 @@ public class Pacchetti	implements Serializable {
 			
 			precedente.setLink(pn);
 		}
-		/**  */
+		/**  elimina il primo nodo quello che punta l' head*/
 		public void eliminaInTesta() throws PacchettiException {
 			if (elementi==0) 
 				throw new PacchettiException("Error 404");
@@ -126,7 +132,7 @@ public class Pacchetti	implements Serializable {
 			elementi--;
 		
 	}
-		/**  */
+		/**  elimina l ultimo elemento*/
 		public void eliminaInCoda() throws PacchettiException{
 			
 			if (elementi==0)
@@ -141,7 +147,7 @@ public class Pacchetti	implements Serializable {
 			penultimo.setLink(null);
 			elementi--;
 		}
-		/**  */
+		/** elimina un elemento passandogli la posizione */
 		public void eliminaInPosizione(int posizione) throws PacchettiException{
 		
 			if (elementi==0)
@@ -165,17 +171,14 @@ public class Pacchetti	implements Serializable {
 			precedente.setLink(p.getLink());
 			elementi--;
 		}
-		/**  */
-		public void venditaPacchetto(int posizione, Pacchetto p) throws PacchettiException {
-			if (posizione==elementi-1) {
-				eliminaInCoda();
-				
-				return;
-			}
-			else throw new PacchettiException("Posizione non valida");
+		/**  elimina il pacchetto in posizione*/
+		public void venditaPacchetto(int posizione) throws PacchettiException {
+			
+			eliminaInPosizione(posizione);
+			return;
 				
 		}
-		/**  */
+		/** passandogli la posizione restituisce il pacchetto */
 		private Pacchetto getPosizionePacchetto (int posizione) throws PacchettiException  
 		{
 			if (elementi == 0)
@@ -185,7 +188,7 @@ public class Pacchetti	implements Serializable {
 			Nodo p = getLinkPosizione(posizione);
 			return p.getInfo();
 		}
-		/**  */
+		/**  esporta l informazione in un file CSV*/
 		public void esportaCSV (String nameFile) throws IOException, PacchettiException 
 		{
 			TextFile file = new TextFile(nameFile, 'W');
@@ -199,6 +202,7 @@ public class Pacchetti	implements Serializable {
 			}
 			file.closeFile();
 		}
+		/**  carica su un file binario */
 		public void salvaPaccchetti(String nomeFile) throws IOException
 		{
 			FileOutputStream file =new FileOutputStream(nomeFile);
@@ -207,7 +211,7 @@ public class Pacchetti	implements Serializable {
 			writer.flush();
 			file.close();
 		}
-		/**  */
+		/** scarica da un file binario */
 		public Pacchetti caricaPacchetti (String nomeFile) throws IOException, ClassNotFoundException
 		{
 			FileInputStream file=new FileInputStream(nomeFile);

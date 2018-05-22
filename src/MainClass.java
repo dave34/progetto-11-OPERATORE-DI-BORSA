@@ -8,7 +8,7 @@ public class MainClass {
 		
 		//--------------<<prove classi specifiche>>-----------\\
 		
-		LocalDate date = LocalDate.of(2018, 3, 11);
+	/*	LocalDate date = LocalDate.of(2018, 3, 11);
 		LocalDate date2= LocalDate.now();
 		ConsoleInput tastiera1=new ConsoleInput();
 		Pacchetto pak1=new Pacchetto(12,33333, date, 4444, date2);
@@ -21,13 +21,14 @@ public class MainClass {
 		
 		
 		//---------------<<prove main menu>>-----------------\\
-		
+		*/
 		int scelta = 0;
 		String[] vociMenu= {"1-->Registrare acquisto nuove di nuovo pacchetto di azioni",
 							"2-->Vendi di un pacchetto di azioni",
 							"3-->Rimuovere un pacchetto di azioni",
 							"4-->Visualizza tutti i pacchetti presenti(ordine di data d' acquisto)",
-							"5-->Visualizza tutti i pacchetti presenti(ordine di prezzo d' acquisto)"};
+							"5-->Visualizza tutti i pacchetti presenti(ordine di prezzo d' acquisto)",
+							"0-->Esci dal menù"};
 		Menu menu=new Menu("OPZIONI APPLICAZIONE 11: OPERATORE DI BORSA...",vociMenu);
 		LocalDate d = LocalDate.of(2018, 3, 11);
 		LocalDate d2= LocalDate.now();
@@ -46,7 +47,7 @@ public class MainClass {
 		int valoreIniziale = 0;
 		int valorefinale=0;
 		int posizione=0;
-		
+		Pacchetto p0=new Pacchetto();
 		Pacchetto p1 =new Pacchetto(12,33333, d, 0, null); 
 		Pacchetto p2=new Pacchetto(3,33333, d, 0, null);
 		Pacchetto pz=new Pacchetto(4,1233,d,0,null);;
@@ -101,20 +102,20 @@ public class MainClass {
 				
 				
 				try {
-					p.getPacchetto(posizione).setdAcquisto(data);
+					paki.getPacchetto(posizione).setdAcquisto(data);
 				} catch (PacchettiException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
 				try {
-					p.acquistoPacchetto(p1,posizione );
+					paki.acquistoPacchetto(p1,posizione );
 				} catch (PacchettiException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-				System.out.println("Pacchetto acquistato: "+p.toString());
+				System.out.println("Pacchetto acquistato: "+p1.toString());
 				
 				break;
 
@@ -156,20 +157,20 @@ public class MainClass {
 				
 				
 				try {
-					p.inserisciInTesta(pz);;
+					paki.inserisciInTesta(pz);;
 					try {
-						p.salvaPaccchetti("pacchettiVenduti.txt");
+						paki.salvaPaccchetti("pacchettiVenduti.txt");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					p.eliminaInPosizione(posizione);
+					paki.eliminaInPosizione(posizione);
 					
 				} catch (PacchettiException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-					System.out.println(p.toString());
+					System.out.println(paki.toString());
 				
 				break;
 			
@@ -204,7 +205,7 @@ public class MainClass {
 				break;
 			case 4:
 				try {
-					System.out.println(Ordinatore.selectionSortCrescente(p));
+					System.out.println(Ordinatore.selectionSortCrescente(paki));
 				} catch (PacchettiException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -212,13 +213,15 @@ public class MainClass {
 				break;
 			case 5:
 				try {
-					System.out.println(Ordinatore.selectionSortDecrescentesoldi(p));
+					System.out.println(Ordinatore.selectionSortDecrescentesoldi(paki));
 				} catch (PacchettiException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
 				break;
+			case 0:
+				System.out.println("Grazie per  l' uso");
 				
 			}
 		} while (scelta>0 && scelta<vociMenu.length);
